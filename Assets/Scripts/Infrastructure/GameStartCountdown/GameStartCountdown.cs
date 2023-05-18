@@ -9,7 +9,7 @@ namespace Infrastructure.GameStartCountdown
         public event Action CountdownFinished = () => { };
         public event Action<float> CountdownTimeChanged = _ => { };
 
-        private float _countdownTime;
+        private float _countdownTime = 0.0f;
 
         public void StartCountdown()
         {

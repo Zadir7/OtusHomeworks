@@ -1566,9 +1566,17 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 3958607668729992313, guid: ec8c3a65d9364214b9852d222ae19b4b, type: 3}
+      propertyPath: _updateObserver
+      value: 
+      objectReference: {fileID: 1555319478}
+    - target: {fileID: 3958607668729992313, guid: ec8c3a65d9364214b9852d222ae19b4b, type: 3}
       propertyPath: _gameStartCountdownView
       value: 
       objectReference: {fileID: 1353260660}
+    - target: {fileID: 3958607668729992313, guid: ec8c3a65d9364214b9852d222ae19b4b, type: 3}
+      propertyPath: autoInjectGameObjects.Array.size
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3958607668729992313, guid: ec8c3a65d9364214b9852d222ae19b4b, type: 3}
       propertyPath: autoInjectGameObjects.Array.data[0]
       value: 
