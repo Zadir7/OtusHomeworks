@@ -1,4 +1,5 @@
 ﻿using System;
+using UnityEngine;
 
 namespace Infrastructure.GameStartCountdown
 {
@@ -19,6 +20,8 @@ namespace Infrastructure.GameStartCountdown
             _countdown.CountdownStarted += OnCountdownStarted;
             _countdown.CountdownTimeChanged += OnCountdown;
             _countdown.CountdownFinished += OnCountdownFinished;
+            
+            Debug.Log("adapter up");
         }
 
         public void Dispose()

@@ -1,8 +1,7 @@
-﻿using Gameplay.Player;
-using Infrastructure.GameEventListeners;
+﻿using Infrastructure.GameEventListeners;
 using UnityEngine;
 
-namespace Gameplay
+namespace Gameplay.Player
 {
     public class PlayerMovement : MonoBehaviour,
         IGameStartListener, 
