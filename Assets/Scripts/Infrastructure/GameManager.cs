@@ -10,11 +10,11 @@ namespace Infrastructure
         public event Action GameResumed = () => { };
         public event Action GameFinished = () => { };
 
-        private readonly GameStartCountdown _gameStartCountdown;
+        private readonly GameStartCountdown.GameStartCountdown _gameStartCountdown;
         
         private GameState _gameState;
 
-        public GameManager(GameStartCountdown gameStartCountdown)
+        public GameManager(GameStartCountdown.GameStartCountdown gameStartCountdown)
         {
             _gameStartCountdown = gameStartCountdown;
             

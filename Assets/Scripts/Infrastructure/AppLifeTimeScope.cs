@@ -10,7 +10,7 @@ namespace Infrastructure
         {
             builder.RegisterEntryPoint<GameManager>();
 
-            builder.Register<GameStartCountdown>(Lifetime.Singleton);
+            builder.Register<GameStartCountdown.GameStartCountdown>(Lifetime.Singleton);
             builder.Register<GameEventsObserver>(Lifetime.Singleton);
         }
     }
