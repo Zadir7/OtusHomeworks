@@ -2,7 +2,7 @@
 
 namespace UI.LosingPopup
 {
-    public class LosingPopupView : MonoBehaviour
+    public sealed class LosingPopupView : MonoBehaviour
     {
         public void Enable()
         {

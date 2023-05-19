@@ -3,7 +3,7 @@ using VContainer.Unity;
 
 namespace UI.LosingPopup
 {
-    public class LosingPopupController : 
+    public sealed class LosingPopupController : 
         IGameFinishListener, 
         IStartable
     {

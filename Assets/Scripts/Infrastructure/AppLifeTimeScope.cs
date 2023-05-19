@@ -1,4 +1,5 @@
 ﻿using Gameplay.Camera;
+using Gameplay.Input;
 using Gameplay.Player;
 using Infrastructure.GameEventObservers;
 using UI.GameStartCountdown;
@@ -31,6 +32,8 @@ namespace Infrastructure
         {
             RegisterPauseButton(builder);
             RegisterGameStartCountdown(builder);
+
+            builder.RegisterEntryPoint<KeyboardInput>().AsSelf();
             
             builder.RegisterEntryPoint<GameManager>().AsSelf();
 
