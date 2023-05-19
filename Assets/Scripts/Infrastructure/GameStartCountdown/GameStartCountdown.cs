@@ -3,7 +3,7 @@ using Infrastructure.GameEventListeners;
 
 namespace Infrastructure.GameStartCountdown
 {
-    public class GameStartCountdown : IUpdateListener
+    public sealed class GameStartCountdown : IUpdateListener
     {
         public event Action CountdownStarted = () => { };
         public event Action CountdownFinished = () => { };

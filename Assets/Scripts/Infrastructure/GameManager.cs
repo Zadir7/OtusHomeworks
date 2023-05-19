@@ -1,11 +1,10 @@
 ﻿using System;
 using Infrastructure.PauseGameButton;
-using UnityEngine;
 using VContainer.Unity;
 
 namespace Infrastructure
 {
-    public class GameManager : IStartable, IDisposable
+    public sealed class GameManager : IStartable, IDisposable
     {
         public event Action GameStarted = () => { };
         public event Action GamePaused = () => { };

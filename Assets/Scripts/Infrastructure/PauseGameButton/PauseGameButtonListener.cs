@@ -3,7 +3,7 @@ using VContainer.Unity;
 
 namespace Infrastructure.PauseGameButton
 {
-    public class PauseGameButtonListener : IStartable, IDisposable
+    public sealed class PauseGameButtonListener : IStartable, IDisposable
     {
         private readonly PauseGameButtonView _view;
 

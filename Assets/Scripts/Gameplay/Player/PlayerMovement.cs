@@ -4,7 +4,7 @@ using VContainer.Unity;
 
 namespace Gameplay.Player
 {
-    public class PlayerMovement : 
+    public sealed class PlayerMovement : 
         IStartable,
         IGameStartListener, 
         IGamePauseListener, 

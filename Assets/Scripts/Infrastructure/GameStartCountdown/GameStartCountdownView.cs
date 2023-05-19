@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Infrastructure.GameStartCountdown
 {
-    public class GameStartCountdownView : MonoBehaviour
+    public sealed class GameStartCountdownView : MonoBehaviour
     {
         [SerializeField] private TextMeshProUGUI _text;
 

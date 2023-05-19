@@ -9,7 +9,7 @@ using VContainer.Unity;
 
 namespace Infrastructure
 {
-    public class AppLifeTimeScope : LifetimeScope
+    public sealed class AppLifeTimeScope : LifetimeScope
     {
         [SerializeField] private GameStartCountdownView _gameStartCountdownView;
         [SerializeField] private UpdateObserver _updateObserver;

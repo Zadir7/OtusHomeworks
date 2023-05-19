@@ -3,7 +3,7 @@ using VContainer.Unity;
 
 namespace Infrastructure.GameStartCountdown
 {
-    public class GameStartCountdownAdapter : IStartable, IDisposable
+    public sealed class GameStartCountdownAdapter : IStartable, IDisposable
     {
         private readonly GameStartCountdown _countdown;
         private readonly GameStartCountdownView _view;

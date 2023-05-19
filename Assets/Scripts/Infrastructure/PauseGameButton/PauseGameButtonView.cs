@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 namespace Infrastructure.PauseGameButton
 {
-    public class PauseGameButtonView : MonoBehaviour
+    public sealed class PauseGameButtonView : MonoBehaviour
     {
         [SerializeField] private Button _pauseButton;
 

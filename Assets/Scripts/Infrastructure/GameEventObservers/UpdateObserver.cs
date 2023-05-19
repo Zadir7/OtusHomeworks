@@ -5,7 +5,7 @@ using VContainer;
 
 namespace Infrastructure.GameEventObservers
 {
-    public class UpdateObserver : MonoBehaviour
+    public sealed class UpdateObserver : MonoBehaviour
     {
         [Inject]
         private IEnumerable<IUpdateListener> _updateListeners;

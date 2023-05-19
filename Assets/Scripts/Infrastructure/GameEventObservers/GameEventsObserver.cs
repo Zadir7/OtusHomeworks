@@ -5,7 +5,7 @@ using VContainer.Unity;
 
 namespace Infrastructure.GameEventObservers
 {
-    public class GameEventsObserver : IStartable, IDisposable
+    public sealed class GameEventsObserver : IStartable, IDisposable
     {
         private readonly GameManager _gameManager;
         

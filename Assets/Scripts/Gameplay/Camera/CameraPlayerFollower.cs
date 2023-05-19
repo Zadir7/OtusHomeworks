@@ -6,7 +6,7 @@ using VContainer.Unity;
 
 namespace Gameplay.Camera
 {
-    public class CameraPlayerFollower : 
+    public sealed class CameraPlayerFollower : 
         IGameStartListener,
         IGameFinishListener,
         ILateUpdateListener,

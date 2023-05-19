@@ -2,7 +2,7 @@
 
 namespace Gameplay.Camera
 {
-    public class CameraView : MonoBehaviour
+    public sealed class CameraView : MonoBehaviour
     {
     }
 }
