@@ -16,7 +16,10 @@ namespace Infrastructure.GameStartCountdown
         {
             _countdown = countdown;
             _view = view;
-
+        }
+        
+        public void Start()
+        {
             _countdown.CountdownStarted += OnCountdownStarted;
             _countdown.CountdownTimeChanged += OnCountdown;
             _countdown.CountdownFinished += OnCountdownFinished;
@@ -57,10 +60,6 @@ namespace Infrastructure.GameStartCountdown
         private void OnCountdownFinished()
         {
             _view.Disable();
-        }
-
-        public void Start()
-        {
         }
     }
 }

@@ -12,11 +12,11 @@ namespace Infrastructure.PauseGameButton
         public PauseGameButtonListener(PauseGameButtonView view)
         {
             _view = view;
-            _view.ButtonPressed += OnButtonPressed;
         }
 
         public void Start()
         {
+            _view.ButtonPressed += OnButtonPressed;
         }
 
         public void Dispose()

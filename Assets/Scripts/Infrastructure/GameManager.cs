@@ -1,4 +1,5 @@
 ﻿using System;
+using Gameplay.Player;
 using Infrastructure.PauseGameButton;
 using VContainer.Unity;
 
@@ -13,28 +14,35 @@ namespace Infrastructure
 
         private readonly GameStartCountdown.GameStartCountdown _gameStartCountdown;
         private readonly PauseGameButtonListener _pauseGameButtonListener;
+        private readonly PlayerCollisionObserver _playerCollisionObserver;
 
         private GameState _gameState;
 
-        public GameManager(GameStartCountdown.GameStartCountdown gameStartCountdown, PauseGameButtonListener pauseGameButtonListener)
+        public GameManager(
+            GameStartCountdown.GameStartCountdown gameStartCountdown, 
+            PauseGameButtonListener pauseGameButtonListener,
+            PlayerCollisionObserver playerCollisionObserver)
         {
             _gameStartCountdown = gameStartCountdown;
             _pauseGameButtonListener = pauseGameButtonListener;
-
+            _playerCollisionObserver = playerCollisionObserver;
+        }
+        
+        public void Start()
+        {
+            _gameState = GameState.NotStarted;
+            _gameStartCountdown.StartCountdown();
+            
             _gameStartCountdown.CountdownFinished += StartGame;
             _pauseGameButtonListener.ButtonPressed += HandlePauseButtonClick;
+            _playerCollisionObserver.PlayerCollidedAnObstacle += FinishGame;
         }
         
         public void Dispose()
         {
             _gameStartCountdown.CountdownFinished -= StartGame;
             _pauseGameButtonListener.ButtonPressed -= HandlePauseButtonClick;
-        }
-
-        public void Start()
-        {
-            _gameState = GameState.NotStarted;
-            _gameStartCountdown.StartCountdown();
+            _playerCollisionObserver.PlayerCollidedAnObstacle -= FinishGame;
         }
 
         private void StartGame()

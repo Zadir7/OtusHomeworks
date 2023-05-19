@@ -26,7 +26,10 @@ namespace Infrastructure.GameEventObservers
             _gamePauseListeners = gamePauseListeners;
             _gameResumeListeners = gameResumeListeners;
             _gameFinishListeners = gameFinishListeners;
-
+        }
+        
+        public void Start()
+        {
             _gameManager.GameStarted += OnGameStart;
             _gameManager.GamePaused += OnGamePause;
             _gameManager.GameResumed += OnGameResume;
@@ -83,10 +86,6 @@ namespace Infrastructure.GameEventObservers
                 if (listener is null) continue;
                 listener.OnGameFinish();
             }
-        }
-
-        public void Start()
-        {
         }
     }
 }

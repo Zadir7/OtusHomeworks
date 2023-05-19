@@ -58,6 +58,7 @@ namespace Infrastructure
         {
             builder.RegisterComponent(_playerView);
             builder.RegisterEntryPoint<PlayerMovement>();
+            builder.RegisterEntryPoint<PlayerCollisionObserver>().AsSelf();
         }
 
         private void RegisterCamera(IContainerBuilder builder)
