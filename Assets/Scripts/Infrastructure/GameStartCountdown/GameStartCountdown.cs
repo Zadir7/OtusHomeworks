@@ -19,10 +19,10 @@ namespace Infrastructure.GameStartCountdown
 
         public void OnUpdate(float deltaTime)
         {
-            if (_countdownTime <= 0) return;
+            if (_countdownTime <= 0.0f) return;
 
             _countdownTime -= deltaTime;
-            if (_countdownTime <= 0)
+            if (_countdownTime <= 0.0f)
             {
                 CountdownFinished.Invoke();
                 return;

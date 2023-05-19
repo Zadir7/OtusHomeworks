@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using Infrastructure.GameEventListeners;
+using VContainer.Unity;
 
 namespace Infrastructure.GameEventObservers
 {
-    public class GameEventsObserver : IDisposable
+    public class GameEventsObserver : IStartable, IDisposable
     {
         private readonly GameManager _gameManager;
         
@@ -12,7 +13,6 @@ namespace Infrastructure.GameEventObservers
         private readonly IEnumerable<IGamePauseListener> _gamePauseListeners;
         private readonly IEnumerable<IGameResumeListener> _gameResumeListeners;
         private readonly IEnumerable<IGameFinishListener> _gameFinishListeners;
-        
 
         public GameEventsObserver(
             GameManager gameManager,
@@ -83,6 +83,10 @@ namespace Infrastructure.GameEventObservers
                 if (listener is null) continue;
                 listener.OnGameFinish();
             }
+        }
+
+        public void Start()
+        {
         }
     }
 }

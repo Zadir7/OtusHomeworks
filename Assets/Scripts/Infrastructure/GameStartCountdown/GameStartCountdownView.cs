@@ -14,12 +14,12 @@ namespace Infrastructure.GameStartCountdown
 
         public void Enable()
         {
-            this.enabled = true;
+            this.gameObject.SetActive(true);
         }
 
         public void Disable()
         {
-            this.enabled = false;
+            this.gameObject.SetActive(false);
         }
     }
 }

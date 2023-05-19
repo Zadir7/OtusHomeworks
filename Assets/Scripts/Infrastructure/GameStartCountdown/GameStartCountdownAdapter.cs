@@ -1,12 +1,12 @@
 ﻿using System;
-using UnityEngine;
+using VContainer.Unity;
 
 namespace Infrastructure.GameStartCountdown
 {
-    public class GameStartCountdownAdapter : IDisposable
+    public class GameStartCountdownAdapter : IStartable, IDisposable
     {
-        private GameStartCountdown _countdown;
-        private GameStartCountdownView _view;
+        private readonly GameStartCountdown _countdown;
+        private readonly GameStartCountdownView _view;
         
         private const string Three = "3";
         private const string Two = "2";
@@ -20,8 +20,6 @@ namespace Infrastructure.GameStartCountdown
             _countdown.CountdownStarted += OnCountdownStarted;
             _countdown.CountdownTimeChanged += OnCountdown;
             _countdown.CountdownFinished += OnCountdownFinished;
-            
-            Debug.Log("adapter up");
         }
 
         public void Dispose()
@@ -59,6 +57,10 @@ namespace Infrastructure.GameStartCountdown
         private void OnCountdownFinished()
         {
             _view.Disable();
+        }
+
+        public void Start()
+        {
         }
     }
 }

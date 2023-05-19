@@ -1,4 +1,5 @@
-﻿using Infrastructure.GameEventObservers;
+﻿using Gameplay.Player;
+using Infrastructure.GameEventObservers;
 using Infrastructure.GameStartCountdown;
 using UnityEngine;
 using VContainer;
@@ -10,19 +11,29 @@ namespace Infrastructure
     {
         [SerializeField] private GameStartCountdownView _gameStartCountdownView;
         [SerializeField] private UpdateObserver _updateObserver;
+        [SerializeField] private PlayerMovement _playerMovement;
         protected override void Configure(IContainerBuilder builder)
         {
+            RegisterInfrastructure(builder);
+
+            builder.RegisterComponent(_playerMovement).AsImplementedInterfaces();
+        }
+
+        private void RegisterInfrastructure(IContainerBuilder builder)
+        {
             builder
-                .Register<GameStartCountdown.GameStartCountdown>(Lifetime.Singleton)
+                .Register<GameStartCountdown.GameStartCountdown>(Lifetime.Scoped)
                 .AsImplementedInterfaces()
                 .AsSelf();
-            builder.RegisterInstance<GameStartCountdownView>(_gameStartCountdownView);
-            builder.Register<GameStartCountdownAdapter>(Lifetime.Singleton);
             
-            builder.RegisterEntryPoint<GameManager>();
+            builder.RegisterComponent(_gameStartCountdownView);
+            builder.RegisterEntryPoint<GameStartCountdownAdapter>().AsSelf();
             
-            builder.Register<GameEventsObserver>(Lifetime.Singleton);
-            builder.RegisterInstance<UpdateObserver>(_updateObserver);
+            builder.RegisterEntryPoint<GameManager>().AsSelf();
+
+            builder.RegisterEntryPoint<GameEventsObserver>().AsSelf();
+            
+            builder.RegisterComponent(_updateObserver);
         }
     }
 }

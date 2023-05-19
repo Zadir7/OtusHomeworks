@@ -17,7 +17,7 @@ namespace Infrastructure
         public GameManager(GameStartCountdown.GameStartCountdown gameStartCountdown)
         {
             _gameStartCountdown = gameStartCountdown;
-            
+
             _gameStartCountdown.CountdownFinished += StartGame;
         }
         
