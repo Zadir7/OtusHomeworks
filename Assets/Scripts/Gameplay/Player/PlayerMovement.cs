@@ -41,6 +41,7 @@ namespace Gameplay.Player
         public void OnUpdate(float deltaTime)
         {
             if (!this.enabled) return;
+            
             Vector3 direction = Vector3.forward;
             _playerView.transform.position += direction * (_speed * deltaTime);
         }
