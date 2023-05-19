@@ -2,7 +2,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Infrastructure.PauseGameButton
+namespace UI.PauseGameButton
 {
     public sealed class PauseGameButtonView : MonoBehaviour
     {

@@ -1,7 +1,7 @@
 ﻿using System;
 using VContainer.Unity;
 
-namespace Infrastructure.PauseGameButton
+namespace UI.PauseGameButton
 {
     public sealed class PauseGameButtonListener : IStartable, IDisposable
     {

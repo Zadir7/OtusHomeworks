@@ -1,7 +1,7 @@
 ﻿using System;
 using VContainer.Unity;
 
-namespace Infrastructure.GameStartCountdown
+namespace UI.GameStartCountdown
 {
     public sealed class GameStartCountdownAdapter : IStartable, IDisposable
     {

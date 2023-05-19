@@ -1,7 +1,7 @@
 ﻿using System;
 using Infrastructure.GameEventListeners;
 
-namespace Infrastructure.GameStartCountdown
+namespace UI.GameStartCountdown
 {
     public sealed class GameStartCountdown : IUpdateListener
     {

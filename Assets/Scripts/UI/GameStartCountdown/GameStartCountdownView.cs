@@ -1,7 +1,7 @@
 ﻿using TMPro;
 using UnityEngine;
 
-namespace Infrastructure.GameStartCountdown
+namespace UI.GameStartCountdown
 {
     public sealed class GameStartCountdownView : MonoBehaviour
     {

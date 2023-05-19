@@ -1,6 +1,7 @@
 ﻿using System;
 using Gameplay.Player;
-using Infrastructure.PauseGameButton;
+using UI.GameStartCountdown;
+using UI.PauseGameButton;
 using VContainer.Unity;
 
 namespace Infrastructure
@@ -12,14 +13,14 @@ namespace Infrastructure
         public event Action GameResumed = () => { };
         public event Action GameFinished = () => { };
 
-        private readonly GameStartCountdown.GameStartCountdown _gameStartCountdown;
+        private readonly GameStartCountdown _gameStartCountdown;
         private readonly PauseGameButtonListener _pauseGameButtonListener;
         private readonly PlayerCollisionObserver _playerCollisionObserver;
 
         private GameState _gameState;
 
         public GameManager(
-            GameStartCountdown.GameStartCountdown gameStartCountdown, 
+            GameStartCountdown gameStartCountdown, 
             PauseGameButtonListener pauseGameButtonListener,
             PlayerCollisionObserver playerCollisionObserver)
         {

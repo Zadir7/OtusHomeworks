@@ -1,8 +1,8 @@
 ﻿using Gameplay.Camera;
 using Gameplay.Player;
 using Infrastructure.GameEventObservers;
-using Infrastructure.GameStartCountdown;
-using Infrastructure.PauseGameButton;
+using UI.GameStartCountdown;
+using UI.PauseGameButton;
 using UnityEngine;
 using VContainer;
 using VContainer.Unity;
@@ -46,7 +46,7 @@ namespace Infrastructure
         private void RegisterGameStartCountdown(IContainerBuilder builder)
         {
             builder
-                .Register<GameStartCountdown.GameStartCountdown>(Lifetime.Scoped)
+                .Register<GameStartCountdown>(Lifetime.Scoped)
                 .AsImplementedInterfaces()
                 .AsSelf();
 
