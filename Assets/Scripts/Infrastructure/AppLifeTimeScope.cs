@@ -2,6 +2,7 @@
 using Gameplay.Player;
 using Infrastructure.GameEventObservers;
 using UI.GameStartCountdown;
+using UI.LosingPopup;
 using UI.PauseGameButton;
 using UnityEngine;
 using VContainer;
@@ -16,25 +17,44 @@ namespace Infrastructure
         [SerializeField] private PlayerView _playerView;
         [SerializeField] private CameraView _cameraView;
         [SerializeField] private PauseGameButtonView _pauseGameButtonView;
+        [SerializeField] private LosingPopupView _losingPopupView;
         protected override void Configure(IContainerBuilder builder)
         {
             RegisterInfrastructure(builder);
 
             RegisterPlayer(builder);
             RegisterCamera(builder);
+            RegisterUI(builder);
         }
 
         private void RegisterInfrastructure(IContainerBuilder builder)
         {
             RegisterPauseButton(builder);
-
             RegisterGameStartCountdown(builder);
-
+            
             builder.RegisterEntryPoint<GameManager>().AsSelf();
 
             builder.RegisterEntryPoint<GameEventsObserver>().AsSelf();
             
             builder.RegisterComponent(_updateObserver);
+        }
+
+        private void RegisterPlayer(IContainerBuilder builder)
+        {
+            builder.RegisterComponent(_playerView);
+            builder.RegisterEntryPoint<PlayerMovement>();
+            builder.RegisterEntryPoint<PlayerCollisionObserver>().AsSelf();
+        }
+
+        private void RegisterCamera(IContainerBuilder builder)
+        {
+            builder.RegisterComponent(_cameraView);
+            builder.RegisterEntryPoint<CameraPlayerFollower>();
+        }
+
+        private void RegisterUI(IContainerBuilder builder)
+        {
+            RegisterLosingPopup(builder);
         }
 
         private void RegisterPauseButton(IContainerBuilder builder)
@@ -54,17 +74,10 @@ namespace Infrastructure
             builder.RegisterEntryPoint<GameStartCountdownAdapter>().AsSelf();
         }
 
-        private void RegisterPlayer(IContainerBuilder builder)
+        private void RegisterLosingPopup(IContainerBuilder builder)
         {
-            builder.RegisterComponent(_playerView);
-            builder.RegisterEntryPoint<PlayerMovement>();
-            builder.RegisterEntryPoint<PlayerCollisionObserver>().AsSelf();
-        }
-
-        private void RegisterCamera(IContainerBuilder builder)
-        {
-            builder.RegisterComponent(_cameraView);
-            builder.RegisterEntryPoint<CameraPlayerFollower>();
+            builder.RegisterComponent(_losingPopupView);
+            builder.RegisterEntryPoint<LosingPopupController>();
         }
     }
 }
