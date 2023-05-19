@@ -1,4 +1,5 @@
-﻿using Gameplay.Player;
+﻿using Gameplay.Camera;
+using Gameplay.Player;
 using Infrastructure.GameEventObservers;
 using Infrastructure.GameStartCountdown;
 using Infrastructure.PauseGameButton;
@@ -12,13 +13,15 @@ namespace Infrastructure
     {
         [SerializeField] private GameStartCountdownView _gameStartCountdownView;
         [SerializeField] private UpdateObserver _updateObserver;
-        [SerializeField] private PlayerMovement _playerMovement;
+        [SerializeField] private PlayerView _playerView;
+        [SerializeField] private CameraView _cameraView;
         [SerializeField] private PauseGameButtonView _pauseGameButtonView;
         protected override void Configure(IContainerBuilder builder)
         {
             RegisterInfrastructure(builder);
 
-            builder.RegisterComponent(_playerMovement).AsImplementedInterfaces();
+            RegisterPlayer(builder);
+            RegisterCamera(builder);
         }
 
         private void RegisterInfrastructure(IContainerBuilder builder)
@@ -49,6 +52,18 @@ namespace Infrastructure
 
             builder.RegisterComponent(_gameStartCountdownView);
             builder.RegisterEntryPoint<GameStartCountdownAdapter>().AsSelf();
+        }
+
+        private void RegisterPlayer(IContainerBuilder builder)
+        {
+            builder.RegisterComponent(_playerView);
+            builder.RegisterEntryPoint<PlayerMovement>();
+        }
+
+        private void RegisterCamera(IContainerBuilder builder)
+        {
+            builder.RegisterComponent(_cameraView);
+            builder.RegisterEntryPoint<CameraPlayerFollower>();
         }
     }
 }

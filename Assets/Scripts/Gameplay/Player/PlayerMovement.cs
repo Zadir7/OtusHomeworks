@@ -1,49 +1,59 @@
 ﻿using Infrastructure.GameEventListeners;
 using UnityEngine;
+using VContainer.Unity;
 
 namespace Gameplay.Player
 {
-    public class PlayerMovement : MonoBehaviour,
+    public class PlayerMovement : 
+        IStartable,
         IGameStartListener, 
         IGamePauseListener, 
         IGameResumeListener, 
         IGameFinishListener,
         IUpdateListener
     {
-        [SerializeField] private PlayerView _playerView;
-        [SerializeField] private float _speed;
+        private readonly PlayerView _playerView;
+        
+        private bool _enabled;
+        
+        private const float Speed = 2.0f;
 
-        private void Awake()
+        public PlayerMovement(PlayerView playerView)
         {
-            this.enabled = false;
+            _playerView = playerView;
+        }
+
+        public void Start()
+        {
+            _enabled = false;
         }
 
         public void OnGameStart()
         {
-            this.enabled = true;
+            _enabled = true;
         }
 
         public void OnGamePause()
         {
-            this.enabled = false;
+            _enabled = false;
         }
 
         public void OnGameResume()
         {
-            this.enabled = true;
+            _enabled = true;
         }
 
         public void OnGameFinish()
         {
-            this.enabled = false;
+            _enabled = false;
         }
 
         public void OnUpdate(float deltaTime)
         {
-            if (!this.enabled) return;
+            if (!_enabled) return;
             
             Vector3 direction = Vector3.forward;
-            _playerView.transform.position += direction * (_speed * deltaTime);
+            _playerView.transform.position += direction * (Speed * deltaTime);
         }
     }
 }
