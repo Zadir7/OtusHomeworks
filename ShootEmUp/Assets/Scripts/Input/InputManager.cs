@@ -1,41 +1,45 @@
+using System;
 using UnityEngine;
+using VContainer.Unity;
 
 namespace ShootEmUp
 {
-    public sealed class InputManager : MonoBehaviour
+    public sealed class InputManager : ITickable
     {
-        public float HorizontalDirection { get; private set; }
+        public float HorizontalInput { get; private set; }
 
-        [SerializeField]
-        private GameObject character;
+        public event Action OnFireInput = () => { };
 
-        [SerializeField]
-        private CharacterController characterController;
+        void ITickable.Tick()
+        {
+            CheckHorizontalInput();
 
-        private void Update()
+            CheckFireInput();
+        }
+
+        private void CheckHorizontalInput()
+        {
+            if (Input.GetKey(KeyCode.LeftArrow))
+            {
+                this.HorizontalInput = -1;
+                return;
+            }
+
+            if (Input.GetKey(KeyCode.RightArrow))
+            {
+                this.HorizontalInput = 1;
+                return;
+            }
+
+            this.HorizontalInput = 0;
+        }
+
+        private void CheckFireInput()
         {
             if (Input.GetKeyDown(KeyCode.Space))
             {
-                characterController._fireRequired = true;
+                OnFireInput.Invoke();
             }
-
-            if (Input.GetKey(KeyCode.LeftArrow))
-            {
-                this.HorizontalDirection = -1;
-            }
-            else if (Input.GetKey(KeyCode.RightArrow))
-            {
-                this.HorizontalDirection = 1;
-            }
-            else
-            {
-                this.HorizontalDirection = 0;
-            }
-        }
-        
-        private void FixedUpdate()
-        {
-            this.character.GetComponent<MoveComponent>().MoveByRigidbodyVelocity(new Vector2(this.HorizontalDirection, 0) * Time.fixedDeltaTime);
         }
     }
 }
