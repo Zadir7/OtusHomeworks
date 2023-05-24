@@ -8,7 +8,7 @@ namespace ShootEmUp
     {
         private readonly HitPointsComponent hitPointsComponent;
 
-        public event Action OnPlayerDeath = () => { };
+        public event Action OnPlayerDeath;
 
         public CharacterController(CharacterView characterView)
         {
@@ -25,6 +25,6 @@ namespace ShootEmUp
             hitPointsComponent.HitPointsEmpty -= this.OnCharacterDeath;
         }
 
-        private void OnCharacterDeath(GameObject _) => this.OnPlayerDeath.Invoke();
+        private void OnCharacterDeath(GameObject _) => this.OnPlayerDeath?.Invoke();
     }
 }

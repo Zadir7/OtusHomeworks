@@ -9,7 +9,7 @@ namespace ShootEmUp
         
         [SerializeField] private int hitPoints;
         
-        public bool IsHitPointsExists() {
+        public bool IsNotDead() {
             return this.hitPoints > 0;
         }
 

@@ -8,7 +8,7 @@ namespace ShootEmUp
     {
         public float HorizontalInput { get; private set; }
 
-        public event Action OnFireInput = () => { };
+        public event Action OnFireInput;
 
         void ITickable.Tick()
         {
@@ -38,7 +38,7 @@ namespace ShootEmUp
         {
             if (Input.GetKeyDown(KeyCode.Space))
             {
-                OnFireInput.Invoke();
+                OnFireInput?.Invoke();
             }
         }
     }
