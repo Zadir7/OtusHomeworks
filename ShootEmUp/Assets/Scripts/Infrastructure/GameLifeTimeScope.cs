@@ -24,9 +24,11 @@ namespace ShootEmUp
 
             builder.RegisterComponent(bulletSystem);
             builder.RegisterComponent(characterBulletConfig);
-            
-            
+
+
             RegisterCharacterControllers(builder);
+
+            builder.Register<FinishGameController>(Lifetime.Singleton).AsImplementedInterfaces();
         }
 
         private void RegisterCharacterControllers(IContainerBuilder builder)
@@ -37,7 +39,8 @@ namespace ShootEmUp
 
             builder
                 .Register<CharacterController>(Lifetime.Singleton)
-                .AsImplementedInterfaces();
+                .AsImplementedInterfaces()
+                .AsSelf();
             
             builder
                 .Register<CharacterFireController>(Lifetime.Singleton)

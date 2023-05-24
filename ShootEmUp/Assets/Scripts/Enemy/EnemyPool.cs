@@ -52,7 +52,7 @@ namespace ShootEmUp
             return enemy;
         }
 
-        public void UnspawnEnemy(GameObject enemy)
+        public void DespawnEnemy(GameObject enemy)
         {
             enemy.transform.SetParent(this.container);
             this.enemyPool.Enqueue(enemy);

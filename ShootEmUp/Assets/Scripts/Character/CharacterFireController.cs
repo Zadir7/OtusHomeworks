@@ -35,15 +35,7 @@ namespace ShootEmUp
 
         private void FirePlayerProjectile()
         {
-            this.bulletSystem.FlyBulletByArgs(new BulletSystem.Args
-            {
-                isPlayer = true,
-                physicsLayer = (int)this.bulletConfig.physicsLayer,
-                color = this.bulletConfig.color,
-                damage = this.bulletConfig.damage,
-                position = characterWeapon.Position,
-                velocity = characterWeapon.Rotation * Vector3.up * this.bulletConfig.speed
-            });
+            this.bulletSystem.SpawnPlayerBullet(this.bulletConfig, this.characterWeapon);
         }
     }
 }

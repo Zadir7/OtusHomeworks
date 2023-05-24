@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace ShootEmUp
@@ -13,27 +14,25 @@ namespace ShootEmUp
         [SerializeField] private Transform worldTransform;
         [SerializeField] private LevelBounds levelBounds;
 
-        private readonly Queue<Bullet> m_bulletPool = new();
-        private readonly HashSet<Bullet> m_activeBullets = new();
-        private readonly List<Bullet> m_cache = new();
+        private readonly Queue<Bullet> bulletPool = new();
+        private readonly HashSet<Bullet> activeBullets = new();
         
         private void Awake()
         {
             for (var i = 0; i < this.initialCount; i++)
             {
                 var bullet = Instantiate(this.prefab, this.container);
-                this.m_bulletPool.Enqueue(bullet);
+                this.bulletPool.Enqueue(bullet);
             }
         }
         
         private void FixedUpdate()
         {
-            this.m_cache.Clear();
-            this.m_cache.AddRange(this.m_activeBullets);
+            var bulletCache = activeBullets.ToArray();
 
-            for (int i = 0, count = this.m_cache.Count; i < count; i++)
+            for (int i = 0, count = bulletCache.Length; i < count; i++)
             {
-                var bullet = this.m_cache[i];
+                var bullet = bulletCache[i];
                 if (!this.levelBounds.InBounds(bullet.transform.position))
                 {
                     this.RemoveBullet(bullet);
@@ -41,9 +40,35 @@ namespace ShootEmUp
             }
         }
 
-        public void FlyBulletByArgs(Args args)
+        public void SpawnEnemyBullet(Vector2 position, Vector2 direction)
         {
-            if (this.m_bulletPool.TryDequeue(out var bullet))
+            this.SpawnBullet(new BulletSpawnArgs
+            {
+                isPlayer = false,
+                physicsLayer = (int)PhysicsLayer.ENEMY_BULLET,
+                color = Color.red,
+                damage = 1,
+                position = position,
+                velocity = direction * 2.0f
+            });
+        }
+
+        public void SpawnPlayerBullet(BulletConfig bulletConfig, WeaponComponent weapon)
+        {
+            this.SpawnBullet(new BulletSpawnArgs
+            {
+                isPlayer = true,
+                physicsLayer = (int)bulletConfig.physicsLayer,
+                color = bulletConfig.color,
+                damage = bulletConfig.damage,
+                position = weapon.Position,
+                velocity = weapon.Rotation * Vector3.up * bulletConfig.speed
+            });
+        }
+
+        private void SpawnBullet(BulletSpawnArgs bulletSpawnArgs)
+        {
+            if (this.bulletPool.TryDequeue(out var bullet))
             {
                 bullet.transform.SetParent(this.worldTransform);
             }
@@ -52,14 +77,14 @@ namespace ShootEmUp
                 bullet = Instantiate(this.prefab, this.worldTransform);
             }
 
-            bullet.SetPosition(args.position);
-            bullet.SetColor(args.color);
-            bullet.SetPhysicsLayer(args.physicsLayer);
-            bullet.damage = args.damage;
-            bullet.isPlayer = args.isPlayer;
-            bullet.SetVelocity(args.velocity);
+            bullet.SetPosition(bulletSpawnArgs.position);
+            bullet.SetColor(bulletSpawnArgs.color);
+            bullet.SetPhysicsLayer(bulletSpawnArgs.physicsLayer);
+            bullet.damage = bulletSpawnArgs.damage;
+            bullet.isPlayer = bulletSpawnArgs.isPlayer;
+            bullet.SetVelocity(bulletSpawnArgs.velocity);
             
-            if (this.m_activeBullets.Add(bullet))
+            if (this.activeBullets.Add(bullet))
             {
                 bullet.OnCollisionEntered += this.OnBulletCollision;
             }
@@ -73,22 +98,12 @@ namespace ShootEmUp
 
         private void RemoveBullet(Bullet bullet)
         {
-            if (this.m_activeBullets.Remove(bullet))
+            if (this.activeBullets.Remove(bullet))
             {
                 bullet.OnCollisionEntered -= this.OnBulletCollision;
                 bullet.transform.SetParent(this.container);
-                this.m_bulletPool.Enqueue(bullet);
+                this.bulletPool.Enqueue(bullet);
             }
-        }
-        
-        public struct Args
-        {
-            public Vector2 position;
-            public Vector2 velocity;
-            public Color color;
-            public int physicsLayer;
-            public int damage;
-            public bool isPlayer;
         }
     }
 }

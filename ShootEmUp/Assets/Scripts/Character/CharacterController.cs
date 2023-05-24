@@ -17,12 +17,12 @@ namespace ShootEmUp
         
         void IStartable.Start()
         {
-            hitPointsComponent.hpEmpty += this.OnCharacterDeath;
+            hitPointsComponent.HitPointsEmpty += this.OnCharacterDeath;
         }
 
         void IDisposable.Dispose()
         {
-            hitPointsComponent.hpEmpty -= this.OnCharacterDeath;
+            hitPointsComponent.HitPointsEmpty -= this.OnCharacterDeath;
         }
 
         private void OnCharacterDeath(GameObject _) => this.OnPlayerDeath.Invoke();
