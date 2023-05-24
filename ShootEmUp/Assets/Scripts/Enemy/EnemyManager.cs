@@ -6,45 +6,42 @@ namespace ShootEmUp
 {
     public sealed class EnemyManager : MonoBehaviour
     {
-        [SerializeField]
-        private EnemyPool _enemyPool;
-
-        [SerializeField]
-        private BulletSystem _bulletSystem;
+        [SerializeField] private EnemyPool enemyPool;
+        [SerializeField] private BulletSystem bulletSystem;
         
-        private readonly HashSet<GameObject> m_activeEnemies = new();
+        private readonly HashSet<GameObject> activeEnemies = new();
 
         private IEnumerator Start()
         {
             while (true)
             {
                 yield return new WaitForSeconds(1);
-                var enemy = this._enemyPool.SpawnEnemy();
-                if (enemy != null)
+                
+                var enemy = this.enemyPool.SpawnEnemy();
+                if (enemy == null) continue;
+                
+                if (this.activeEnemies.Add(enemy))
                 {
-                    if (this.m_activeEnemies.Add(enemy))
-                    {
-                        enemy.GetComponent<HitPointsComponent>().HitPointsEmpty += this.OnDestroyed;
-                        enemy.GetComponent<EnemyAttackAgent>().OnFire += this.OnFire;
-                    }    
+                    enemy.GetComponent<HitPointsComponent>().HitPointsEmpty += this.OnDestroyed;
+                    enemy.GetComponent<EnemyAttackAgent>().OnFire += this.OnFire;
                 }
             }
         }
 
         private void OnDestroyed(GameObject enemy)
         {
-            if (m_activeEnemies.Remove(enemy))
+            if (activeEnemies.Remove(enemy))
             {
                 enemy.GetComponent<HitPointsComponent>().HitPointsEmpty -= this.OnDestroyed;
                 enemy.GetComponent<EnemyAttackAgent>().OnFire -= this.OnFire;
 
-                _enemyPool.DespawnEnemy(enemy);
+                enemyPool.DespawnEnemy(enemy);
             }
         }
 
         private void OnFire(Vector2 position, Vector2 direction)
         {
-            _bulletSystem.SpawnEnemyBullet(position, direction);
+            bulletSystem.SpawnEnemyBullet(position, direction);
         }
     }
 }

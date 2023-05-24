@@ -6,17 +6,18 @@ namespace ShootEmUp
 {
     public sealed class BulletSystem : MonoBehaviour
     {
-        [SerializeField]
-        private int initialCount = 50;
+        [SerializeField] private int initialCount = 50;
         
         [SerializeField] private Transform container;
-        [SerializeField] private Bullet prefab;
         [SerializeField] private Transform worldTransform;
         [SerializeField] private LevelBounds levelBounds;
+        
+        [SerializeField] private Bullet prefab;
 
         private readonly Queue<Bullet> bulletPool = new();
         private readonly HashSet<Bullet> activeBullets = new();
-        
+        private readonly List<Bullet> bulletCache = new();
+
         private void Awake()
         {
             for (var i = 0; i < this.initialCount; i++)
@@ -28,11 +29,12 @@ namespace ShootEmUp
         
         private void FixedUpdate()
         {
-            var bulletCache = activeBullets.ToArray();
+            this.bulletCache.Clear();
+            this.bulletCache.AddRange(activeBullets);
 
-            for (int i = 0, count = bulletCache.Length; i < count; i++)
+            for (int i = 0, count = this.bulletCache.Count; i < count; i++)
             {
-                var bullet = bulletCache[i];
+                var bullet = this.bulletCache[i];
                 if (!this.levelBounds.InBounds(bullet.transform.position))
                 {
                     this.RemoveBullet(bullet);
