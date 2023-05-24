@@ -11,12 +11,13 @@ namespace Utilities
 
         public Timer(float countdown)
         {
-            
+            this.countdown = countdown;
         }
 
         public void Update(float deltaTime)
         {
             this.timeLeft -= deltaTime;
+            
             if (this.timeLeft <= 0.0f)
             {
                 OnExpire?.Invoke();
