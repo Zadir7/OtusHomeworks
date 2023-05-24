@@ -1,65 +1,59 @@
-using System;
 using UnityEngine;
+using VContainer.Unity;
 
 namespace ShootEmUp
 {
-    public sealed class LevelBackground : MonoBehaviour
+    public sealed class LevelBackground : IFixedTickable
     {
-        private float startPositionY;
+        private readonly Transform backgroundTransform;
 
-        private float endPositionY;
+        private readonly float startPositionY;
+        private readonly float endPositionY;
+        private readonly float movingSpeedY;
 
-        private float movingSpeedY;
+        private readonly float positionX;
+        private readonly float positionZ;
 
-        private float positionX;
+        private bool HasReachedEndPosition => this.backgroundTransform.position.y <= this.endPositionY;
 
-        private float positionZ;
-
-        private Transform myTransform;
-
-        [SerializeField]
-        private Params m_params;
-
-        private void Awake()
+        public LevelBackground(LevelBackgroundConfig levelBackgroundConfig, LevelBackgroundView view)
         {
-            this.startPositionY = this.m_params.m_startPositionY;
-            this.endPositionY = this.m_params.m_endPositionY;
-            this.movingSpeedY = this.m_params.m_movingSpeedY;
-            this.myTransform = this.transform;
-            var position = this.myTransform.position;
+            this.startPositionY = levelBackgroundConfig.startPositionY;
+            this.endPositionY = levelBackgroundConfig.endPositionY;
+            this.movingSpeedY = levelBackgroundConfig.speedY;
+            this.backgroundTransform = view.transform;
+            
+            var position = this.backgroundTransform.position;
             this.positionX = position.x;
             this.positionZ = position.z;
         }
 
-        private void FixedUpdate()
+        void IFixedTickable.FixedTick()
         {
-            if (this.myTransform.position.y <= this.endPositionY)
+            if (HasReachedEndPosition)
             {
-                this.myTransform.position = new Vector3(
-                    this.positionX,
-                    this.startPositionY,
-                    this.positionZ
-                );
+                ResetPosition();
             }
 
-            this.myTransform.position -= new Vector3(
+            MoveBackground(Time.fixedDeltaTime);
+        }
+
+        private void ResetPosition()
+        {
+            this.backgroundTransform.position = new Vector3(
                 this.positionX,
-                this.movingSpeedY * Time.fixedDeltaTime,
+                this.startPositionY,
                 this.positionZ
             );
         }
 
-        [Serializable]
-        public sealed class Params
+        private void MoveBackground(float deltaTime)
         {
-            [SerializeField]
-            public float m_startPositionY;
-
-            [SerializeField]
-            public float m_endPositionY;
-
-            [SerializeField]
-            public float m_movingSpeedY;
+            this.backgroundTransform.position -= new Vector3(
+                this.positionX,
+                this.movingSpeedY * deltaTime,
+                this.positionZ
+            );
         }
     }
 }

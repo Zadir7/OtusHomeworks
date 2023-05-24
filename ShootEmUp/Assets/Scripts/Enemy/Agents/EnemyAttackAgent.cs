@@ -15,6 +15,11 @@ namespace ShootEmUp
         private GameObject firingTarget;
         private Timer firingTimer;
 
+        private void Awake()
+        {
+            this.firingTimer = new Timer(countdown);
+        }
+
         private void OnEnable()
         {
             firingTimer.OnExpire += Fire;
