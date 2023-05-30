@@ -47,7 +47,7 @@ namespace ShootEmUp
                 return;
             }
 
-            if (!this.firingTarget.GetComponent<HitPointsComponent>().IsNotDead())
+            if (!this.firingTarget.GetComponent<HitPointsComponent>().IsNotDead)
             {
                 return;
             }

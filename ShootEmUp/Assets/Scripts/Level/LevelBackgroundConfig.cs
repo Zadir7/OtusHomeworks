@@ -2,10 +2,7 @@
 
 namespace ShootEmUp
 {
-    [CreateAssetMenu(
-        fileName = nameof(LevelBackgroundConfig),
-        menuName = "Level/Background Config"
-    )]
+    [CreateAssetMenu(fileName = nameof(LevelBackgroundConfig), menuName = "Level/Background Config")]
     public sealed class LevelBackgroundConfig : ScriptableObject
     {
         [SerializeField] public float startPositionY;

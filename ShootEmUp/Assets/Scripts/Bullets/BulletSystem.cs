@@ -46,12 +46,12 @@ namespace ShootEmUp
         {
             this.SpawnBullet(new BulletSpawnArgs
             {
-                isPlayer = false,
-                physicsLayer = (int)PhysicsLayer.ENEMY_BULLET,
-                color = Color.red,
-                damage = 1,
-                position = position,
-                velocity = direction * 2.0f
+                IsPlayer = false,
+                PhysicsLayer = (int)PhysicsLayer.ENEMY_BULLET,
+                Color = Color.red,
+                Damage = 1,
+                Position = position,
+                Velocity = direction * 2.0f
             });
         }
 
@@ -59,12 +59,12 @@ namespace ShootEmUp
         {
             this.SpawnBullet(new BulletSpawnArgs
             {
-                isPlayer = true,
-                physicsLayer = (int)bulletConfig.physicsLayer,
-                color = bulletConfig.color,
-                damage = bulletConfig.damage,
-                position = weapon.Position,
-                velocity = weapon.Rotation * Vector3.up * bulletConfig.speed
+                IsPlayer = true,
+                PhysicsLayer = (int)bulletConfig.physicsLayer,
+                Color = bulletConfig.color,
+                Damage = bulletConfig.damage,
+                Position = weapon.Position,
+                Velocity = weapon.Rotation * Vector3.up * bulletConfig.speed
             });
         }
 
@@ -79,12 +79,12 @@ namespace ShootEmUp
                 bullet = Instantiate(this.prefab, this.worldTransform);
             }
 
-            bullet.SetPosition(bulletSpawnArgs.position);
-            bullet.SetColor(bulletSpawnArgs.color);
-            bullet.SetPhysicsLayer(bulletSpawnArgs.physicsLayer);
-            bullet.damage = bulletSpawnArgs.damage;
-            bullet.isPlayer = bulletSpawnArgs.isPlayer;
-            bullet.SetVelocity(bulletSpawnArgs.velocity);
+            bullet.SetPosition(bulletSpawnArgs.Position);
+            bullet.SetColor(bulletSpawnArgs.Color);
+            bullet.SetPhysicsLayer(bulletSpawnArgs.PhysicsLayer);
+            bullet.Damage = bulletSpawnArgs.Damage;
+            bullet.IsPlayer = bulletSpawnArgs.IsPlayer;
+            bullet.SetVelocity(bulletSpawnArgs.Velocity);
             
             if (this.activeBullets.Add(bullet))
             {
