@@ -1,41 +1,32 @@
 ﻿using System;
-using UnityEngine;
 using VContainer.Unity;
 
 namespace ShootEmUp
 {
     public sealed class CharacterFireController : IStartable, IDisposable
     {
-        private readonly InputManager inputManager;
-        private readonly BulletConfig bulletConfig;
-        private readonly BulletSystem bulletSystem;
-        private readonly WeaponComponent characterWeapon;
+        private readonly FireInputManager fireInputManager;
+        private readonly BulletSpawner bulletSpawner;
 
-        public CharacterFireController(
-            InputManager inputManager, 
-            CharacterView characterView, 
-            BulletConfig bulletConfig, 
-            BulletSystem bulletSystem)
+        public CharacterFireController(FireInputManager fireInputManager, BulletSpawner bulletSpawner)
         {
-            this.inputManager = inputManager;
-            this.bulletConfig = bulletConfig;
-            this.bulletSystem = bulletSystem;
-            this.characterWeapon = characterView.GetComponent<WeaponComponent>();
+            this.fireInputManager = fireInputManager;
+            this.bulletSpawner = bulletSpawner;
         }
         
         public void Start()
         {
-            this.inputManager.OnFireInput += FirePlayerProjectile;
+            this.fireInputManager.OnFireInput += FirePlayerProjectile;
         }
 
         public void Dispose()
         {
-            this.inputManager.OnFireInput -= FirePlayerProjectile;
+            this.fireInputManager.OnFireInput -= FirePlayerProjectile;
         }
 
         private void FirePlayerProjectile()
         {
-            this.bulletSystem.SpawnPlayerBullet(this.bulletConfig, this.characterWeapon);
+            this.bulletSpawner.SpawnPlayerBullet();
         }
     }
 }

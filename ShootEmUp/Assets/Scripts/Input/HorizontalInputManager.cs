@@ -1,20 +1,15 @@
-using System;
 using UnityEngine;
 using VContainer.Unity;
 
 namespace ShootEmUp
 {
-    public sealed class InputManager : ITickable
+    public sealed class HorizontalInputManager : ITickable
     {
         public float HorizontalInput { get; private set; }
-
-        public event Action OnFireInput;
 
         void ITickable.Tick()
         {
             CheckHorizontalInput();
-
-            CheckFireInput();
         }
 
         private void CheckHorizontalInput()
@@ -32,14 +27,6 @@ namespace ShootEmUp
             }
 
             this.HorizontalInput = 0;
-        }
-
-        private void CheckFireInput()
-        {
-            if (Input.GetKeyDown(KeyCode.Space))
-            {
-                OnFireInput?.Invoke();
-            }
         }
     }
 }

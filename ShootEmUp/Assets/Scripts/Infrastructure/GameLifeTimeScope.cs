@@ -7,20 +7,20 @@ namespace ShootEmUp
     public sealed class GameLifeTimeScope : LifetimeScope
     {
         [SerializeField] private CharacterView characterView;
-        [SerializeField] private BulletSystem bulletSystem;
-        [SerializeField] private BulletConfig characterBulletConfig;
+        [SerializeField] private BulletPool bulletPool;
+        [SerializeField] private BulletSpawner bulletSpawner;
+        [SerializeField] private LevelBounds levelBounds;
         [SerializeField] private LevelBackgroundConfig levelBackgroundConfig;
         [SerializeField] private LevelBackgroundView levelBackground;
         
         protected override void Configure(IContainerBuilder builder)
         {
             RegisterGameManager(builder);
-            RegisterInputManager(builder);
+            RegisterInputManagers(builder);
 
             RegisterGameBackground(builder);
 
-            builder.RegisterComponent(bulletSystem);
-            builder.RegisterComponent(characterBulletConfig);
+            RegisterBulletSystems(builder);
 
             RegisterCharacterControllers(builder);
 
@@ -37,10 +37,14 @@ namespace ShootEmUp
                 .AsSelf();
         }
 
-        private void RegisterInputManager(IContainerBuilder builder)
+        private void RegisterInputManagers(IContainerBuilder builder)
         {
             builder
-                .Register<InputManager>(Lifetime.Singleton)
+                .Register<HorizontalInputManager>(Lifetime.Singleton)
+                .AsImplementedInterfaces()
+                .AsSelf();
+
+            builder.Register<FireInputManager>(Lifetime.Singleton)
                 .AsImplementedInterfaces()
                 .AsSelf();
         }
@@ -60,6 +64,16 @@ namespace ShootEmUp
                 .AsImplementedInterfaces();
         }
 
+        private void RegisterBulletSystems(IContainerBuilder builder)
+        {
+            builder.RegisterComponent(bulletPool);
+            builder.RegisterComponent(bulletSpawner);
+            builder.RegisterComponent(levelBounds);
+
+            builder.Register<BulletTracker>(Lifetime.Singleton)
+                .AsImplementedInterfaces();
+        }
+
         private void RegisterCharacterControllers(IContainerBuilder builder)
         {
             builder
@@ -73,8 +87,7 @@ namespace ShootEmUp
             
             builder
                 .Register<CharacterFireController>(Lifetime.Singleton)
-                .AsImplementedInterfaces()
-                .WithParameter("bulletConfig", characterBulletConfig);
+                .AsImplementedInterfaces();
             
             builder
                 .Register<CharacterMoveController>(Lifetime.Singleton)

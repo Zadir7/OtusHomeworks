@@ -7,7 +7,7 @@ namespace ShootEmUp
     public sealed class EnemyManager : MonoBehaviour
     {
         [SerializeField] private EnemyPool enemyPool;
-        [SerializeField] private BulletSystem bulletSystem;
+        [SerializeField] private BulletSpawner bulletSpawner;
         
         private readonly HashSet<GameObject> activeEnemies = new();
 
@@ -41,7 +41,7 @@ namespace ShootEmUp
 
         private void OnFire(Vector2 position, Vector2 direction)
         {
-            bulletSystem.SpawnEnemyBullet(position, direction);
+            bulletSpawner.SpawnEnemyBullet(position, direction);
         }
     }
 }
