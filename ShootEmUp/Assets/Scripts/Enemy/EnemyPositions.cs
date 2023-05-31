@@ -1,4 +1,5 @@
 using UnityEngine;
+using Utilities;
 
 namespace ShootEmUp
 {
@@ -9,12 +10,12 @@ namespace ShootEmUp
 
         public Transform GetRandomSpawnPosition()
         {
-            return Utilities.Utilities.GetRandomElementInArray(this.spawnPositions);
+            return this.spawnPositions.GetRandomElementInArray();
         }
 
         public Transform GetRandomAttackPosition()
         {
-            return Utilities.Utilities.GetRandomElementInArray(this.attackPositions);
+            return this.attackPositions.GetRandomElementInArray();
         }
     }
 }
