@@ -23,10 +23,6 @@ namespace ShootEmUp
             RegisterBulletSystems(builder);
 
             RegisterCharacterControllers(builder);
-
-            builder
-                .Register<FinishGameController>(Lifetime.Singleton)
-                .AsImplementedInterfaces();
         }
 
         private void RegisterGameManager(IContainerBuilder builder)
