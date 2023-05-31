@@ -12,6 +12,8 @@ namespace ShootEmUp
         [SerializeField] private LevelBounds levelBounds;
         [SerializeField] private LevelBackgroundConfig levelBackgroundConfig;
         [SerializeField] private LevelBackgroundView levelBackground;
+        [SerializeField] private EnemyPool enemyPool;
+        [SerializeField] private EnemySpawner enemySpawner;
         
         protected override void Configure(IContainerBuilder builder)
         {
@@ -23,6 +25,8 @@ namespace ShootEmUp
             RegisterBulletSystems(builder);
 
             RegisterCharacterControllers(builder);
+
+            RegisterEnemySystems(builder);
         }
 
         private void RegisterGameManager(IContainerBuilder builder)
@@ -87,6 +91,17 @@ namespace ShootEmUp
             
             builder
                 .Register<CharacterMoveController>(Lifetime.Singleton)
+                .AsImplementedInterfaces();
+        }
+
+        private void RegisterEnemySystems(IContainerBuilder builder)
+        {
+            builder.RegisterComponent(enemyPool);
+
+            builder.RegisterComponent(enemySpawner);
+
+            builder
+                .Register<EnemyObserver>(Lifetime.Singleton)
                 .AsImplementedInterfaces();
         }
     }
