@@ -1,34 +1,33 @@
 using UnityEngine;
-using VContainer.Unity;
 
 namespace ShootEmUp
 {
-    public sealed class LevelBackground : IFixedTickable
+    public sealed class LevelBackground : MonoBehaviour
     {
-        private readonly Transform backgroundTransform;
+        [SerializeField] private LevelBackgroundConfig backgroundConfig;
+        [SerializeField] private Transform backgroundTransform;
 
-        private readonly float startPositionY;
-        private readonly float endPositionY;
-        private readonly float movingSpeedY;
+        private float startPositionY;
+        private float endPositionY;
+        private float movingSpeedY;
 
-        private readonly float positionX;
-        private readonly float positionZ;
+        private float positionX;
+        private float positionZ;
 
         private bool HasReachedEndPosition => this.backgroundTransform.position.y <= this.endPositionY;
 
-        public LevelBackground(LevelBackgroundConfig levelBackgroundConfig, LevelBackgroundView view)
+        public void Awake()
         {
-            this.startPositionY = levelBackgroundConfig.startPositionY;
-            this.endPositionY = levelBackgroundConfig.endPositionY;
-            this.movingSpeedY = levelBackgroundConfig.speedY;
-            this.backgroundTransform = view.transform;
+            this.startPositionY = this.backgroundConfig.startPositionY;
+            this.endPositionY = this.backgroundConfig.endPositionY;
+            this.movingSpeedY = this.backgroundConfig.speedY;
             
             var position = this.backgroundTransform.position;
             this.positionX = position.x;
             this.positionZ = position.z;
         }
 
-        void IFixedTickable.FixedTick()
+        private void FixedUpdate()
         {
             if (HasReachedEndPosition)
             {

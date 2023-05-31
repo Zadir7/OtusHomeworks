@@ -10,8 +10,7 @@ namespace ShootEmUp
         [SerializeField] private BulletPool bulletPool;
         [SerializeField] private BulletSpawner bulletSpawner;
         [SerializeField] private LevelBounds levelBounds;
-        [SerializeField] private LevelBackgroundConfig levelBackgroundConfig;
-        [SerializeField] private LevelBackgroundView levelBackground;
+        [SerializeField] private LevelBackground levelBackground;
         [SerializeField] private EnemyPool enemyPool;
         [SerializeField] private EnemySpawner enemySpawner;
         
@@ -51,17 +50,7 @@ namespace ShootEmUp
 
         private void RegisterGameBackground(IContainerBuilder builder)
         {
-            builder
-                .RegisterComponent(levelBackgroundConfig)
-                .AsSelf();
-            
-            builder
-                .RegisterComponent(levelBackground)
-                .AsSelf();
-            
-            builder
-                .Register<LevelBackground>(Lifetime.Singleton)
-                .AsImplementedInterfaces();
+            builder.RegisterComponent(levelBackground);
         }
 
         private void RegisterBulletSystems(IContainerBuilder builder)
