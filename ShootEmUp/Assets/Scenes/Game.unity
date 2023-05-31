@@ -374,6 +374,7 @@ GameObject:
   - component: {fileID: 562298204}
   - component: {fileID: 562298207}
   - component: {fileID: 562298208}
+  - component: {fileID: 562298209}
   m_Layer: 0
   m_Name: EnemySystem
   m_TagString: Untagged
@@ -428,6 +429,19 @@ MonoBehaviour:
   enemyPositions: {fileID: 7166351703523243261}
   character: {fileID: 4414282821800802405}
   enemyPool: {fileID: 562298207}
+--- !u!114 &562298209
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 562298203}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d15008b7ca1447cb744274ab96fa701, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemySpawner: {fileID: 562298208}
 --- !u!1 &883274639
 GameObject:
   m_ObjectHideFlags: 0
