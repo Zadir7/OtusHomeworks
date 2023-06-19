@@ -1,13 +1,17 @@
-﻿using UnityEngine;
+﻿using UI.CharacterInfoPopup;
+using UnityEngine;
 
 namespace UI
 {
     public sealed class PopupManager
     {
-        public void ShowCharacterInfoPopup()
+        private readonly CharacterInfoPopup.CharacterInfoPopup _characterInfoPopup;
+        private readonly ICharacterInfoPopupPM _characterInfoPopupPm;
+        
+        public void ShowCharacterInfoPopup(CharacterInfoPopupData popupData)
         {
-            //TODO
-            Debug.Log("there goes char popup");
+            _characterInfoPopupPm.SetData(popupData);
+            _characterInfoPopup.Show();
         }
     }
 }
