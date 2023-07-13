@@ -7,7 +7,7 @@ namespace Movement.Speed
         public override void Bake(SpeedAuthoring authoring)
         {
             var entity = GetEntity(TransformUsageFlags.Dynamic);
-            AddComponent(entity, new SpeedComponent
+            AddComponent(entity, new Speed
             {
                 Value = authoring.Value
             });

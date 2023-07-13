@@ -2,7 +2,7 @@
 
 namespace Movement.Speed
 {
-    public struct SpeedComponent : IComponentData
+    public struct Speed : IComponentData
     {
         public float Value;
     }
