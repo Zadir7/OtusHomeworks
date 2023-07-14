@@ -36,10 +36,9 @@ namespace CubeSpawn
                 });
                 ecb.AddComponent(newCube, new FreshSpawnedCube
                 {
-                    Entity = newCube
+                    Entity = newCube,
+                    InitialPosition = GetCubePosition(i, teamNumber)
                 });
-                /*var transform = SystemAPI.GetComponentRW<LocalTransform>(newCube);
-                transform.ValueRW.Position = GetCubePosition(i, teamNumber);*/
             }
 
             for (int i = 0; i < cubeSpawnProps.Team2Cubes; i++)
@@ -52,10 +51,9 @@ namespace CubeSpawn
                 });
                 ecb.AddComponent(newCube, new FreshSpawnedCube
                 {
-                    Entity = newCube
+                    Entity = newCube,
+                    InitialPosition = GetCubePosition(i, teamNumber)
                 });
-                /*var transform = SystemAPI.GetComponentRW<LocalTransform>(newCube);
-                transform.ValueRW.Position = GetCubePosition(i, teamNumber);*/
             }
             
             ecb.Playback(state.EntityManager);
@@ -66,17 +64,23 @@ namespace CubeSpawn
             var doubledIndex = number * 2;
             var row = doubledIndex / 100;
             var rowPosition = doubledIndex % 100;
-            return GetCubeStartPosition(teamNumber) + new float3(row * 2, 0, rowPosition * 2);
+            var isTeam1 = teamNumber == 1;
+            var zCoordinateByRow = row * 2;
+            if (!isTeam1)
+            {
+                zCoordinateByRow *= -1;
+            }
+            return GetCubeStartPosition(isTeam1) + new float3(rowPosition, 0, zCoordinateByRow);
         }
 
-        private float3 GetCubeStartPosition(int teamNumber)
+        private float3 GetCubeStartPosition(bool isTeam1)
         {
-            var cubeStartingZPosition = -49.0f;
-            var cubeStartingXPosition = 5.0f;
+            var cubeStartingXPosition = -49.0f;
+            var cubeStartingZPosition = 15.0f;
             
-            return teamNumber == 1 
+            return isTeam1 
                 ? new float3(cubeStartingXPosition, 0, cubeStartingZPosition) 
-                : new float3(-cubeStartingXPosition, 0, cubeStartingZPosition);
+                : new float3(cubeStartingXPosition, 0, -cubeStartingZPosition);
         }
     }
 }
