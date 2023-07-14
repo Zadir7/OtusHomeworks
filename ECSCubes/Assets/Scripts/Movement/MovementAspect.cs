@@ -13,11 +13,10 @@ namespace Movement
         public void Move(float deltaTime)
         {
             var target = TargetPosition.ValueRW.Value;
-            var currentPosition = Transform.ValueRW.Position;
-            var direction = target - currentPosition;
+            var direction = target - Transform.ValueRW.Position;
 
             var normalizedDirection = math.normalize(direction);
-            currentPosition += normalizedDirection * Speed.ValueRO.Value * deltaTime;
+            Transform.ValueRW.Position += normalizedDirection * Speed.ValueRO.Value * deltaTime;
         }
 
         public bool HasReachedTargetPosition()

@@ -1,4 +1,5 @@
-﻿using Movement.TargetPosition;
+﻿using Movement.Speed;
+using Movement.TargetPosition;
 using Unity.Burst;
 using Unity.Collections;
 using Unity.Entities;
@@ -29,6 +30,10 @@ namespace CubeSpawn
                 ecb.AddComponent(entity, new TargetPosition
                 {
                     Value = newMovementTarget
+                });
+                ecb.AddComponent(entity, new Speed
+                {
+                    Value = 2
                 });
             }
             
