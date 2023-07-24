@@ -1,6 +1,6 @@
 ﻿using Unity.Entities;
 
-namespace CubeSpawn
+namespace Mechanics.CubeSpawn
 {
     public class CubeSpawnPropsBaker : Baker<CubeSpawnPropsAuthoring>
     {

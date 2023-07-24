@@ -1,11 +1,9 @@
-﻿using Mechanics.Team;
-using Unity.Burst;
+﻿using Unity.Burst;
 using Unity.Collections;
 using Unity.Entities;
 using Unity.Mathematics;
-using Unity.Transforms;
 
-namespace CubeSpawn
+namespace Mechanics.CubeSpawn
 {
     [BurstCompile]
     public partial struct CubeSpawnSystem : ISystem
@@ -30,7 +28,7 @@ namespace CubeSpawn
                 var teamNumber = 1;
                 var newCube = ecb.Instantiate(prefab);
                 
-                ecb.AddComponent(newCube, new Team
+                ecb.AddComponent(newCube, new Team.Team
                 {
                     Number = teamNumber
                 });
@@ -45,7 +43,7 @@ namespace CubeSpawn
             {
                 var teamNumber = 2;
                 var newCube = ecb.Instantiate(prefab);
-                ecb.AddComponent(newCube, new Team
+                ecb.AddComponent(newCube, new Team.Team
                 {
                     Number = teamNumber
                 });

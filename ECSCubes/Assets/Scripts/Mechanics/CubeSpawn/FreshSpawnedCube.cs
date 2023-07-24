@@ -1,7 +1,7 @@
 ﻿using Unity.Entities;
 using Unity.Mathematics;
 
-namespace CubeSpawn
+namespace Mechanics.CubeSpawn
 {
     public struct FreshSpawnedCube : IComponentData
     {

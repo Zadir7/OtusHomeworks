@@ -1,12 +1,12 @@
 ﻿using Movement.Speed;
-using Movement.TargetPosition;
+using Movement.TargetPositionMovement;
 using Unity.Burst;
 using Unity.Collections;
 using Unity.Entities;
 using Unity.Mathematics;
 using Unity.Transforms;
 
-namespace CubeSpawn
+namespace Mechanics.CubeSpawn
 {
     [BurstCompile]
     [UpdateAfter(typeof(CubeSpawnSystem))]

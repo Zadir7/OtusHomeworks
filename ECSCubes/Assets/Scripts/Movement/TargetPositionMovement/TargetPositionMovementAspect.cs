@@ -2,13 +2,13 @@
 using Unity.Mathematics;
 using Unity.Transforms;
 
-namespace Movement
+namespace Movement.TargetPositionMovement
 {
-    public readonly partial struct MovementAspect : IAspect
+    public readonly partial struct TargetPositionMovementAspect : IAspect
     {
         public readonly RefRW<LocalTransform> Transform;
         public readonly RefRO<Speed.Speed> Speed;
-        public readonly RefRW<TargetPosition.TargetPosition> TargetPosition;
+        public readonly RefRW<TargetPosition> TargetPosition;
 
         public void Move(float deltaTime)
         {

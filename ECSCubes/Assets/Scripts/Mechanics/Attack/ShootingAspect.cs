@@ -3,11 +3,11 @@ using Unity.Transforms;
 
 namespace Mechanics.Attack
 {
-    public partial struct ShootingAspect : IAspect
+    public readonly partial struct ShootingAspect : IAspect
     {
-        public RefRO<LocalTransform> Transform;
-        public RefRO<AttackRange.AttackRange> Range;
-        public RefRO<Team.Team> Team;
-        public RefRW<Shooter> Shooting;
+        public readonly RefRO<LocalTransform> Transform;
+        public readonly RefRO<AttackRange.AttackRange> Range;
+        public readonly RefRO<Team.Team> Team;
+        public readonly RefRW<Shooter> Shooting;
     }
 }

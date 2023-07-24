@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace CubeSpawn
+namespace Mechanics.CubeSpawn
 {
     public class CubeSpawnPropsAuthoring : MonoBehaviour
     {
